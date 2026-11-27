@@ -123,30 +123,22 @@ class MainScene(Scene):
         return super().render_targets_reset(common)
 
     def render_device_reset(self, common: CommonEvent) -> None:
-        """
-        SDL_RENDER_DEVICE_RESET
-        Устройство рендеринга сброшено (нужно пересоздать текстуры)
-        """
+        self.printEvent(f"render_device_reset (common)")
+        return super().render_device_reset(common)
 
     def sensorupdate(self, common: CommonEvent, sensor: SensorEvent) -> None:
-        """
-        SDL_SENSORUPDATE
-        Обновились данные сенсора
-        """
+        self.printEvent(f"sensorupdate (common, sensor)")
+        return super().sensorupdate(common, sensor)
 
     # События клавиатуры
 
     def keydown(self, common: CommonEvent, key: KeyboardEvent) -> None:
-        """
-        SDL_KEYDOWN
-        Клавиша нажата
-        """
+        self.printEvent(f"keydown (common, key)")
+        return super().keydown(common, key)
 
     def keyup(self, common: CommonEvent, key: KeyboardEvent) -> None:
-        """
-        SDL_KEYUP
-        Клавиша отпущена
-        """
+        self.printEvent(f"keyup (common, key)")
+        return super().keyup(common, key)
 
     def textediting(self, common: CommonEvent, edit: TextEditingEvent) -> None:
         """
