@@ -127,257 +127,184 @@ class MainScene(Scene):
         return super().render_device_reset(common)
 
     def sensorupdate(self, common: CommonEvent, sensor: SensorEvent) -> None:
-        self.printEvent(f"sensorupdate (common, sensor)")
+        self.printEvent(f"sensorupdate (common, sensor) which={sensor.which}, data={sensor.data}")
         return super().sensorupdate(common, sensor)
 
     # События клавиатуры
 
     def keydown(self, common: CommonEvent, key: KeyboardEvent) -> None:
-        self.printEvent(f"keydown (common, key)")
+        self.printEvent(f"keydown (common, key) windowID={key.windowID}, state={key.state}, repeat={key.repeat}, keysym.scancode={key.keysym.scancode}, keysym.sym={key.keysym.sym}, keysym.mod={key.keysym.mod}, keysym.unused={key.keysym.unused}")
         return super().keydown(common, key)
 
     def keyup(self, common: CommonEvent, key: KeyboardEvent) -> None:
-        self.printEvent(f"keyup (common, key)")
+        self.printEvent(f"keyup (common, key) windowID={key.windowID}, state={key.state}, repeat={key.repeat}, keysym.scancode={key.keysym.scancode}, keysym.sym={key.keysym.sym}, keysym.mod={key.keysym.mod}, keysym.unused={key.keysym.unused}")
         return super().keyup(common, key)
 
     def textediting(self, common: CommonEvent, edit: TextEditingEvent) -> None:
-        """
-        SDL_TEXTEDITING
-        Редактирование текста (IME, композиция)
-        """
+        self.printEvent(f"textediting (common, edit) windowID={edit.windowID}, text={edit.text}, start={edit.start}, length={edit.length}")
+        return super().textediting(common, edit)
 
     def textinput(self, common: CommonEvent, text: TextInputEvent) -> None:
-        """
-        SDL_TEXTINPUT
-        Ввод текста (после завершения IME)
-        """
+        self.printEvent(f"textinput (common, text) windowID={text.windowID}, text={text.text}")
+        return super().textinput(common, text)
 
     def keymapchanged(self, common: CommonEvent) -> None:
-        """
-        SDL_KEYMAPCHANGED
-        Раскладка клавиатуры изменилась системой
-        """
+        self.printEvent(f"keymapchanged (common)")
+        return super().keymapchanged(common)
 
     def textediting_ext(self, common: CommonEvent, editExt: TextEditingExtEvent) -> None:
-        """
-        SDL_TEXTEDITING_EXT
-        Расширенное редактирование текста (IME)
-        """
+        self.printEvent(f"textediting_ext (common, editExt) windowID={editExt.windowID} text={editExt.text}, start={editExt.start}, length={editExt.length}")
+        return super().textediting_ext(common, editExt)
 
     # События мыши
 
     def mousemotion(self, common: CommonEvent, motion: MouseMotionEvent) -> None:
-        """
-        SDL_MOUSEMOTION
-        Перемещение мыши
-        """
+        #self.printEvent(f"mousemotion (common, motion) which={motion.which} state={motion.state}, x={motion.x}, y={motion.x}, xrel={motion.xrel}, yrel={motion.yrel}")
+        return super().mousemotion(common, motion)
 
     def mousebuttondown(self, common: CommonEvent, button: MouseButtonEvent) -> None:
-        """
-        SDL_MOUSEBUTTONDOWN
-        Кнопка мыши нажата
-        """
+        self.printEvent(f"mousebuttondown (common, button) which={button.which} button={button.button}, state={button.state}, clicks={button.clicks}, x={button.x}, y={button.y}")
+        return super().mousebuttondown(common, button)
 
     def mousebuttonup(self, common: CommonEvent, button: MouseButtonEvent) -> None:
-        """
-        SDL_MOUSEBUTTONUP
-        Кнопка мыши отпущена
-        """
+        self.printEvent(f"mousebuttonup (common, button) which={button.which} button={button.button}, state={button.state}, clicks={button.clicks}, x={button.x}, y={button.y}")
+        return super().mousebuttonup(common, button)
 
     def mousewheel(self, common: CommonEvent, wheel: MouseWheelEvent) -> None:
-        """
-        SDL_MOUSEWHEEL
-        Прокрутка колеса мыши
-        """
+        self.printEvent(f"mousewheel (common, wheel) which={wheel.which} x={wheel.x}, y={wheel.y}, direction={wheel.direction}, preciseX={wheel.preciseX}, preciseY={wheel.preciseY}, mouseX={wheel.mouseX}, mouseY={wheel.mouseY}")
+        return super().mousewheel(common, wheel)
 
     # Джойстик (классический API)
     def joyaxismotion(self, common: CommonEvent, jaxis: JoyAxisEvent) -> None:
-        """
-        SDL_JOYAXISMOTION
-        Движение оси джойстика
-        """
+        self.printEvent(f"joyaxismotion (common, jaxis) which={jaxis.which} axis={jaxis.axis}, value={jaxis.value}")
+        return super().joyaxismotion(common, jaxis)
 
     def joyballmotion(self, common: CommonEvent, jball: JoyBallEvent) -> None:
-        """
-        SDL_JOYBALLMOTION
-        Движение трекбола
-        """
+        self.printEvent(f"joyballmotion (common, jball) which={jball.which} ball={jball.ball}, xrel={jball.xrel}, yrel={jball.yrel}")
+        return super().joyballmotion(common, jball)
 
     def joyhatmotion(self, common: CommonEvent, jhat: JoyHatEvent) -> None:
-        """
-        SDL_JOYHATMOTION
-        Изменение POV-переключателя (hat)
-        """
+        self.printEvent(f"joyhatmotion (common, jhat) which={jhat.which} hat={jhat.hat}, value={jhat.value}")
+        return super().joyhatmotion(common, jhat)
 
     def joybuttondown(self, common: CommonEvent, jbutton: JoyButtonEvent) -> None:
-        """
-        SDL_JOYBUTTONDOWN
-        Кнопка джойстика нажата
-        """
+        self.printEvent(f"joybuttondown (common, jbutton) which={jbutton.which} button={jbutton.button}, state={jbutton.state}")
+        return super().joybuttondown(common, jbutton)
 
     def joybuttonup(self, common: CommonEvent, jbutton: JoyButtonEvent) -> None:
-        """
-        SDL_JOYBUTTONUP
-        Кнопка джойстика отпущена
-        """
+        self.printEvent(f"joybuttonup (common, jbutton) which={jbutton.which} button={jbutton.button}, state={jbutton.state}")
+        return super().joybuttonup(common, jbutton)
 
     def joydeviceadded(self, common: CommonEvent, jdevice: JoyDeviceEvent) -> None:
-        """
-        SDL_JOYDEVICEADDED
-        Джойстик подключён
-        """
+        self.printEvent(f"joydeviceadded (common, jdevice) which={jdevice.which}")
+        return super().joydeviceadded(common, jdevice)
 
     def joydeviceremoved(self, common: CommonEvent, jdevice: JoyDeviceEvent) -> None:
-        """
-        SDL_JOYDEVICEREMOVED
-        Джойстик отключён
-        """
+        self.printEvent(f"joydeviceremoved (common, jdevice) which={jdevice.which}")
+        return super().joydeviceremoved(common, jdevice)
         
     def joybatteryupdated(self, common: CommonEvent, jbattery: JoyBatteryEvent) -> None:
-        """
-        SDL_JOYBATTERYUPDATED
-        Изменился уровень заряда джойстика
-        """
+        try:
+            self.printEvent(f"joybatteryupdated (common, jbattery) which={jbattery.which}, level={jbattery.level}")
+        except:
+            self.printEvent(f"joybatteryupdated (common, jbattery) which={jbattery.which}")
+        return super().joybatteryupdated(common, jbattery)
 
     # Контроллеры (Game Controller API, SDL2)
 
     def controlleraxismotion(self, common: CommonEvent, caxis: ControllerAxisEvent) -> None:
-        """
-        SDL_CONTROLLERAXISMOTION
-        Движение оси контроллера
-        """
+        self.printEvent(f"controlleraxismotion (common, caxis) which={caxis.which}, axis={caxis.axis}, value={caxis.value}")
+        return super().controlleraxismotion(common, caxis)
 
     def controllerbuttondown(self, common: CommonEvent, cbutton: ControllerButtonEvent) -> None:
-        """
-        SDL_CONTROLLERBUTTONDOWN
-        Кнопка контроллера нажата
-        """
+        self.printEvent(f"controllerbuttondown (common, cbutton) which={cbutton.which}, button={cbutton.button}, state={cbutton.state}")
+        return super().controllerbuttondown(common, cbutton)
 
     def controllerbuttonup(self, common: CommonEvent, cbutton: ControllerButtonEvent) -> None:
-        """
-        SDL_CONTROLLERBUTTONUP
-        Кнопка контроллера отпущена
-        """
+        self.printEvent(f"controllerbuttonup (common, cbutton) which={cbutton.which}, button={cbutton.button}, state={cbutton.state}")
+        return super().controllerbuttonup(common, cbutton)
 
     def controllerdeviceadded(self, common: CommonEvent, cdevice: ControllerDeviceEvent) -> None:
-        """
-        SDL_CONTROLLERDEVICEADDED
-        Контроллер подключён
-        """
+        self.printEvent(f"controllerdeviceadded (common, cdevice) which={cdevice.which}")
+        return super().controllerdeviceadded(common, cdevice)
 
     def controllerdeviceremoved(self, common: CommonEvent, cdevice: ControllerDeviceEvent) -> None:
-        """
-        SDL_CONTROLLERDEVICEREMOVED
-        Контроллер отключён
-        """
+        self.printEvent(f"controllerdeviceremoved (common, cdevice) which={cdevice.which}")
+        return super().controllerdeviceremoved(common, cdevice)
 
     def controllerdeviceremapped(self, common: CommonEvent, cdevice: ControllerDeviceEvent) -> None:
-        """
-        SDL_CONTROLLERDEVICEREMAPPED
-        Раскладка контроллера обновлена
-        """
+        self.printEvent(f"controllerdeviceremapped (common, cdevice) which={cdevice.which}")
+        return super().controllerdeviceremapped(common, cdevice)
 
     def controllertouchpaddown(self, common: CommonEvent, ctouchpad: ControllerTouchpadEvent) -> None:
-        """
-        SDL_CONTROLLERTOUCHPADDOWN
-        Тачпад контроллера нажат
-        """
+        self.printEvent(f"controllertouchpaddown (common, ctouchpad) which={ctouchpad.which}, touchpad={ctouchpad.touchpad}, finger={ctouchpad.finger}, x={ctouchpad.x}, y={ctouchpad.y}, pressure={ctouchpad.pressure}")
+        return super().controllertouchpaddown(common, ctouchpad)
 
     def controllertouchpadmotion(self, common: CommonEvent, ctouchpad: ControllerTouchpadEvent) -> None:
-        """
-        SDL_CONTROLLERTOUCHPADMOTION
-        Палец движется по тачпаду контроллера 
-        """
+        self.printEvent(f"controllertouchpadmotion (common, ctouchpad) which={ctouchpad.which}, touchpad={ctouchpad.touchpad}, finger={ctouchpad.finger}, x={ctouchpad.x}, y={ctouchpad.y}, pressure={ctouchpad.pressure}")
+        return super().controllertouchpadmotion(common, ctouchpad)
 
     def controllertouchpadup(self, common: CommonEvent, ctouchpad: ControllerTouchpadEvent) -> None:
-        """
-        SDL_CONTROLLERTOUCHPADUP
-        Палец отпущен с тачпада контроллера
-        """
+        self.printEvent(f"controllertouchpadup (common, ctouchpad) which={ctouchpad.which}, touchpad={ctouchpad.touchpad}, finger={ctouchpad.finger}, x={ctouchpad.x}, y={ctouchpad.y}, pressure={ctouchpad.pressure}")
+        return super().controllertouchpadup(common, ctouchpad)
 
     def controllersensorupdate(self, common: CommonEvent, csensor: ControllerSensorEvent) -> None:
-        """
-        SDL_CONTROLLERSENSORUPDATE
-        Обновились данные сенсора контроллера
-        """
+        self.printEvent(f"controllersensorupdate (common, csensor) which={csensor.which}, sensor={csensor.sensor}, data={csensor.data}")
+        return super().controllersensorupdate(common, csensor)
 
     # Сенсорный ввод и жесты
 
     def fingerdown(self, common: CommonEvent, tfinger: TouchFingerEvent) -> None:
-        """
-        SDL_FINGERDOWN
-        Палец коснулся экрана
-        """
+        self.printEvent(f"fingerdown (common, tfinger) touchId={tfinger.touchId}, fingerId={tfinger.fingerId}, x={tfinger.x}, y={tfinger.y}, dx={tfinger.dx}, dy={tfinger.dy}, pressure={tfinger.pressure}, pressure={tfinger.pressure}")
+        return super().fingerdown(common, tfinger)
 
     def fingerup(self, common: CommonEvent, tfinger: TouchFingerEvent) -> None:
-        """
-        SDL_FINGERUP
-        Палец поднят
-        """
+        self.printEvent(f"fingerup (common, tfinger) touchId={tfinger.touchId}, fingerId={tfinger.fingerId}, x={tfinger.x}, y={tfinger.y}, dx={tfinger.dx}, dy={tfinger.dy}, pressure={tfinger.pressure}, pressure={tfinger.pressure}")
+        return super().fingerup(common, tfinger)
 
     def fingermotion(self, common: CommonEvent, tfinger: TouchFingerEvent) -> None:
-        """
-        SDL_FINGERMOTION
-        Палец движется
-        """
+        self.printEvent(f"fingermotion (common, tfinger) touchId={tfinger.touchId}, fingerId={tfinger.fingerId}, x={tfinger.x}, y={tfinger.y}, dx={tfinger.dx}, dy={tfinger.dy}, pressure={tfinger.pressure}, pressure={tfinger.pressure}")
+        return super().fingermotion(common, tfinger)
 
     def multigesture(self, common: CommonEvent, mgesture: MultiGestureEvent) -> None:
-        """
-        SDL_MULTIGESTURE
-        Мультитач-жест (щипок, вращение)
-        """
+        self.printEvent(f"multigesture (common, mgesture) touchId={mgesture.touchId}, dTheta={mgesture.dTheta}, dDist={mgesture.dDist}, x={mgesture.x}, y={mgesture.y}, numFingers={mgesture.numFingers}")
+        return super().multigesture(common, mgesture)
 
     def dollargesture(self, common: CommonEvent, dgesture: DollarGestureEvent) -> None:
-        """
-        SDL_DOLLARGESTURE
-        Распознан долларовый жест (1-жест)
-        """
+        self.printEvent(f"dollargesture (common, dgesture) touchId={dgesture.touchId}, gestureId={dgesture.gestureId}, numFingers={dgesture.numFingers}, error={dgesture.error}, x={dgesture.x}, y={dgesture.y}")
+        return super().dollargesture(common, dgesture)
 
     def dollarrecord(self, common: CommonEvent, dgesture: DollarGestureEvent) -> None:
-        """
-        SDL_DOLLARRECORD
-        Записан долларовый жест
-        """
+        self.printEvent(f"dollarrecord (common, dgesture) touchId={dgesture.touchId}, gestureId={dgesture.gestureId}, numFingers={dgesture.numFingers}, error={dgesture.error}, x={dgesture.x}, y={dgesture.y}")
+        return super().dollarrecord(common, dgesture)
 
     # Аудиоустройства
 
     def audiodeviceadded(self, common: CommonEvent, adevice: AudioDeviceEvent) -> None:
-        """
-        SDL_AUDIODEVICEADDED
-        Аудиоустройство подключено
-        """
+        self.printEvent(f"audiodeviceadded (common, adevice) which={adevice.which}, iscapture={adevice.iscapture}")
+        return super().audiodeviceadded(common, adevice)
 
     def audiodeviceremoved(self, common: CommonEvent, adevice: AudioDeviceEvent) -> None:
-        """
-        SDL_AUDIODEVICEREMOVED
-        Аудиоустройство отключено
-        """
+        self.printEvent(f"audiodeviceremoved (common, adevice) which={adevice.which}, iscapture={adevice.iscapture}")
+        return super().audiodeviceremoved(common, adevice)
 
     # Drag and Drop (перетаскивание файлов/текста)
 
     def dropbegin(self, common: CommonEvent, drop: DropEvent) -> None:
-        """
-        SDL_DROPBEGIN
-        Начало перетаскивания
-        """
+        self.printEvent(f"dropbegin (common, drop) file={drop.file}, windowID={drop.windowID}")
+        return super().dropbegin(common, drop)
 
     def dropfile(self, common: CommonEvent, drop: DropEvent) -> None:
-        """
-        SDL_DROPFILE
-        Файл перетащен в окно
-        """
+        self.printEvent(f"dropfile (common, drop) file={drop.file}, windowID={drop.windowID}")
+        return super().dropfile(common, drop)
 
     def droptext(self, common: CommonEvent, drop: DropEvent) -> None:
-        """
-        SDL_DROPTEXT
-        Текст перетащен в окно
-        """
+        self.printEvent(f"droptext (common, drop) file={drop.file}, windowID={drop.windowID}")
+        return super().droptext(common, drop)
 
     def dropcomplete(self, common: CommonEvent, drop: DropEvent) -> None:
-        """
-        SDL_DROPCOMPLETE
-        Перетаскивание завершено
-        """
+        self.printEvent(f"dropcomplete (common, drop) file={drop.file}, windowID={drop.windowID}")
+        return super().dropcomplete(common, drop)
 
 def main(dir: str) -> int:
     app = App(size=(1000, 600), scene=[MainScene])
